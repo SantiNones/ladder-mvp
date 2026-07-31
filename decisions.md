@@ -347,6 +347,27 @@ naturales por sí solos.
 
 ---
 
+## D13 — Trunk-based, no git-flow
+
+**Fecha:** 2026-07-31
+
+**Decisión:** `main` es la rama protegida y todo entra por PR revisado
+desde ramas cortas (`sprint/*`). No hay rama `dev` intermedia.
+
+**Por qué:** git-flow (con `dev` como capa de integración antes de
+`main`) resuelve un problema que este proyecto no tiene: varias
+personas en paralelo, un ambiente de producción real que no se puede
+romper, y ciclos de release programados. Ladder es de una sola persona,
+sin deploy (§11), sin nadie más cuyo trabajo pueda chocar en una rama
+compartida. Añadir `dev` sería ceremonia sin riesgo real que esté
+mitigando.
+
+**Cuándo cambiaría:** el día que exista un ambiente de producción real,
+más de una persona contribuyendo, y se quiera una zona de staging antes
+de soltar algo a usuarios — ninguna de esas tres se da hoy.
+
+---
+
 ## Marco legal y de seguridad
 
 ### L1 — EU AI Act, Anexo III punto 4
