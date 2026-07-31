@@ -1,0 +1,15 @@
+# Rails
+/api/config/master.key
+/api/log/*
+/api/tmp/*
+/api/storage/*
+!/api/storage/.keep
+/api/db/*.sqlite3
+/api/db/*.sqlite3-*
+
+# Node
+/client/node_modules/
+/client/dist/
+
+# OS
+.DS_Store
