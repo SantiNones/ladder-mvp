@@ -373,6 +373,33 @@ mismo (§1b).
 `dropbox.github.io/dbx-career-framework`. Atribución en el README y en
 `source` de cada criterio (D3b, M5).
 
+**Texto verbatim de los 15 criterios — usar tal cual, no re-fetchear ni
+parafrasear.** Copiado directo de las páginas fuente el 2026-07-31, para
+que el seed no dependa de acceso a red durante el build.
+
+Fuente IC2: `dropbox.github.io/dbx-career-framework/ic2_software_engineer.html`
+Fuente IC3: `dropbox.github.io/dbx-career-framework/ic3_software_engineer.html`
+
+| code | level | competency | text |
+|---|---|---|---|
+| RES-2.1 | 2 | RES | I follow through on my commitments, take responsibility for my work, and deliver on time |
+| DIR-2.1 | 2 | DIR | I have a growth mindset and am comfortable experimenting with new approaches, learning, owning the outcomes, and sharing what I learned |
+| TAL-2.1 | 2 | TAL | I help more junior members of my team, interns, or new hires taking into account their unique strengths, backgrounds, and working styles |
+| CUL-2.1 | 2 | CUL | I write and speak with clarity and focus |
+| CRA-2.1 | 2 | CRA | I translate ideas into clear code, written to be read as well as executed |
+| RES-3.1 | 3 | RES | I deliver some of my team's goals on time and with a high standard of quality |
+| RES-3.2 | 3 | RES | When I encounter barriers, I unblock myself and my team by proactively assessing and eliminating the root cause |
+| DIR-3.1 | 3 | DIR | I navigate ambiguity by focusing on the greater purpose, goals, and desired impact to move forward one step at a time |
+| DIR-3.2 | 3 | DIR | I work collaboratively with my manager to set realistic and ambitious short-term goals to deliver customer value quickly and break these goals down into smaller projects for my team or myself |
+| TAL-3.1 | 3 | TAL | I actively look for opportunities to mentor new hires, interns and apprentices |
+| TAL-3.2 | 3 | TAL | I solicit and offer honest and constructive feedback that is delivered with empathy to help others learn and grow |
+| CUL-3.1 | 3 | CUL | I build relationships across teams and help get to positive outcomes |
+| CUL-3.2 | 3 | CUL | I tailor my message to my audience, presenting it clearly and concisely at the right altitude |
+| CRA-3.1 | 3 | CRA | I ensure high code quality in code reviews. I adopt approaches (e.g., set up best practices and coding standards, help resolve differences of opinions) to foster an effective/collaborative code review culture. |
+| CRA-3.2 | 3 | CRA | I am able to independently design software components in well scoped scenarios, with simplicity and maintenance as key considerations. My components are testable, debuggable and have logical APIs that are not easily misused. |
+
+`source` para las 15 filas: `dropbox-public`.
+
 **Niveles:** IC2 (position 2), IC3 (position 3).
 **Competencias:** los cinco pilares — RES, DIR, TAL, CUL, CRA.
 **Criterios:** 5 en IC2 (uno por pilar), 10 en IC3 (dos por pilar).
