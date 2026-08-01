@@ -156,6 +156,11 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
 
       {snapshot.prompt_payload && (
         <div className="trace-panel">
+          <p className="trace-caption">
+            Exactly what the model received — no current level, no names, no
+            other person&rsquo;s data, and no field for status or verdict. It
+            can only write about a gap it did not compute.
+          </p>
           <button
             type="button"
             className="trace-toggle"
