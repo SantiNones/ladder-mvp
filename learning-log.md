@@ -135,6 +135,29 @@ local, de la rama del sprint de vuelta a `main`.
 scaffold de Rails ni de React adentro. Es el patrón a repetir después
 de cada PR mergeado: `checkout main` → `pull` → recién ahí, rama nueva.
 
+### Explorar a mano en desarrollo deja artefactos — y por qué el seed idempotente los arregla solo
+
+**Gap:** aparecieron snapshots de Diego y Carlos en la base de
+**desarrollo** que no venían del seed real — casi generó una alarma de
+"¿algún endpoint está escribiendo cuando no debería?".
+
+**Concepto:** no era un bug de código. Fue un script de `rails runner`
+corrido a mano durante la verificación manual de S2, para poder probar
+con `curl` un caso que los tests automáticos ya cubrían de forma
+aislada (en la base de **test**, que nunca se ensucia). Al plantar esos
+datos directo en desarrollo para poder curlearlos, quedaron ahí después.
+
+La solución fue `bin/rails db:reset` + `db:seed` — porque nuestro seed
+es idempotente y **nunca borra nada por su cuenta**: al resetear la
+base entera y volver a sembrar, el resultado es exactamente y solo los
+datos que el seed declara, ni uno más.
+
+**Por qué importa:** explorar a mano en la base de desarrollo (con
+`runner`, consola, o curls de prueba) es normal y útil, pero deja
+rastro. La red de seguridad no es "no tocar la base a mano" — es tener
+un seed diseñado para que, sin importar qué se ensucie explorando,
+`db:reset` + `db:seed` siempre regrese a un estado limpio y conocido.
+
 ### Disciplina: verificar en vez de confiar
 
 **Gap:** el agente reportó S0 como validado, pero al pedirle los
