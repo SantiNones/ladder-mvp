@@ -5,6 +5,13 @@ class VisibilityResolver
     new(viewer: viewer, subject: subject, snapshot: snapshot).call
   end
 
+  # Same access rule as #call, exposed for endpoints that need a person-level
+  # check without a specific snapshot in hand (S5 progress history).
+  # Single source of truth so the rule never drifts between the two call sites.
+  def self.person_accessible?(viewer:, subject:)
+    viewer.id == subject.id || subject.manager_id == viewer.id
+  end
+
   def initialize(viewer:, subject:, snapshot:)
     @viewer = viewer
     @subject = subject
@@ -32,7 +39,7 @@ class VisibilityResolver
   private
 
   def accessible?
-    @viewer.id == @subject.id || @subject.manager_id == @viewer.id
+    self.class.person_accessible?(viewer: @viewer, subject: @subject)
   end
 
   def load_evidences_by_id
