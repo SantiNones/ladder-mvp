@@ -1,9 +1,38 @@
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/geist-mono/400.css";
+
+/* Design tokens matched to OpsGuard's real palette (app/globals.css),
+   translated to plain CSS variables — no Tailwind, per AGENTS.md's
+   no-new-framework rule. Same warm ivory + rose/coral brand, same card
+   and shadow language, so Ladder reads as a sibling product. */
 :root {
-  color: #1c2430;
+  --background: #fbf8f6;
+  --foreground: #1c1917;
+
+  --brand-50: #fff1f3;
+  --brand-100: #ffe4e8;
+  --brand-200: #fecdd6;
+  --brand-300: #fda4b2;
+  --brand-600: #e11d48;
+  --brand-700: #be123c;
+  --coral-500: #ff7a59;
+
+  --surface: #ffffff;
+  --surface-muted: #faf6f4;
+  --border-soft: #eadeda;
+  --muted: #78716c;
+  --text-secondary: #44403c;
+  --shadow-card: 0 1px 2px rgba(28, 25, 23, 0.05), 0 14px 36px -22px rgba(190, 18, 60, 0.22);
+
+  color: var(--foreground);
   background:
-    radial-gradient(circle at top left, #dce9f5 0%, transparent 42%),
-    linear-gradient(180deg, #f4f7fb 0%, #e8eef5 100%);
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+    radial-gradient(circle at 15% 0%, rgba(244, 63, 94, 0.08), transparent 28rem),
+    radial-gradient(circle at 90% 18%, rgba(255, 122, 89, 0.07), transparent 24rem),
+    linear-gradient(180deg, #fffaf8 0%, var(--background) 34%, #f8f2ef 100%);
+  font-family: "Geist Sans", "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -43,19 +72,24 @@ button {
   justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid #c5d0dc;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .brand-name {
   margin: 0;
-  font-family: "Fraunces", "Palatino Linotype", serif;
+  font-family: "Geist Sans", "Segoe UI", sans-serif;
   font-size: 2rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-600) 45%, var(--coral-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .brand-tag {
   margin: 0.2rem 0 0;
-  color: #5a6a7c;
+  color: var(--muted);
   font-size: 0.95rem;
 }
 
@@ -67,7 +101,7 @@ button {
 }
 
 .lens-label {
-  color: #5a6a7c;
+  color: var(--muted);
   font-size: 0.85rem;
   margin-right: 0.25rem;
 }
@@ -78,15 +112,21 @@ button {
   align-items: flex-start;
   gap: 0.1rem;
   padding: 0.45rem 0.75rem;
-  border: 1px solid #b7c4d2;
-  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border-soft);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.76);
   color: inherit;
   cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.lens-button:hover {
+  border-color: var(--brand-200);
 }
 
 .lens-button--active {
-  border-color: #1f4b73;
-  background: #1f4b73;
+  border-color: var(--brand-600);
+  background: linear-gradient(135deg, var(--brand-600) 0%, var(--brand-700) 100%);
   color: #fff;
 }
 
@@ -111,14 +151,14 @@ button {
 .link-button {
   border: none;
   background: transparent;
-  color: #1f4b73;
+  color: var(--brand-700);
   cursor: pointer;
   padding: 0.35rem 0.15rem;
   border-bottom: 2px solid transparent;
 }
 
 .nav-button--active {
-  border-bottom-color: #1f4b73;
+  border-bottom-color: var(--brand-600);
   font-weight: 600;
 }
 
@@ -128,8 +168,10 @@ button {
 }
 
 .panel {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid #cfd9e4;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 250, 248, 0.9));
+  border: 1px solid var(--border-soft);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
   padding: 1.25rem 1.35rem 1.5rem;
 }
 
@@ -144,7 +186,8 @@ button {
 .panel-header h2,
 .panel h2 {
   margin: 0;
-  font-family: "Fraunces", "Palatino Linotype", serif;
+  font-family: "Geist Sans", "Segoe UI", sans-serif;
+  font-weight: 700;
   font-size: 1.55rem;
 }
 
@@ -154,7 +197,7 @@ button {
 .level-caption,
 .team-meta,
 .evidence-meta {
-  color: #5a6a7c;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
@@ -194,12 +237,13 @@ button {
 .competency-group h3 {
   margin: 0 0 0.65rem;
   font-size: 1rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
 .criterion-row {
   padding: 0.75rem 0;
-  border-top: 1px solid #dbe3ec;
+  border-top: 1px solid var(--border-soft);
 }
 
 .criterion-toggle {
@@ -222,22 +266,23 @@ button {
 }
 
 .criterion-chevron {
-  color: #5a6a7c;
+  color: var(--muted);
 }
 
 .criterion-text {
   margin: 0.45rem 0 0;
-  color: #334155;
+  color: var(--text-secondary);
 }
 
 .status-chip {
   justify-self: start;
   display: inline-block;
-  padding: 0.1rem 0.45rem;
+  padding: 0.1rem 0.55rem;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   border: 1px solid transparent;
+  border-radius: 999px;
 }
 
 .status-chip--met {
@@ -253,9 +298,9 @@ button {
 }
 
 .status-chip--empty {
-  color: #334155;
-  background: #e2e8f0;
-  border-color: #cbd5e1;
+  color: var(--text-secondary);
+  background: #f1e9e6;
+  border-color: var(--border-soft);
 }
 
 .evidence-list {
@@ -268,8 +313,9 @@ button {
 
 .evidence-item {
   padding: 0.65rem 0.75rem;
-  background: #f8fafc;
-  border-left: 3px solid #94a3b8;
+  background: var(--surface-muted);
+  border-left: 3px solid var(--brand-300);
+  border-radius: 0 0.65rem 0.65rem 0;
 }
 
 .evidence-item p {
@@ -285,7 +331,7 @@ button {
 .evidence-empty,
 .empty-state {
   margin: 0.75rem 0 0;
-  color: #5a6a7c;
+  color: var(--muted);
 }
 
 .team-list {
@@ -300,7 +346,7 @@ button {
   align-items: center;
   gap: 1rem;
   padding: 0.85rem 0;
-  border-top: 1px solid #dbe3ec;
+  border-top: 1px solid var(--border-soft);
 }
 
 .team-name {
@@ -312,34 +358,42 @@ button {
   margin: 0.15rem 0 0;
 }
 
+.team-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .banner-error {
   margin: 1rem 0 0;
   padding: 0.75rem 1rem;
   background: #fee2e2;
   border: 1px solid #fca5a5;
+  border-radius: 0.75rem;
   color: #7f1d1d;
 }
 
 .narrative-block {
   margin: 0 0 1.5rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid #dbe3ec;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .narrative-heading {
   margin: 0 0 0.5rem;
   font-size: 1rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
 .narrative-summary {
   margin: 0;
-  color: #334155;
+  color: var(--text-secondary);
 }
 
 .narrative-focus {
   margin: 0.65rem 0 0;
-  color: #5a6a7c;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
@@ -348,7 +402,7 @@ button {
   padding-left: 1.15rem;
   display: grid;
   gap: 0.45rem;
-  color: #334155;
+  color: var(--text-secondary);
 }
 
 .next-step-code {
@@ -361,35 +415,40 @@ button {
 .trace-panel {
   margin-top: 1.75rem;
   padding-top: 1.25rem;
-  border-top: 1px solid #dbe3ec;
+  border-top: 1px solid var(--border-soft);
 }
 
 .trace-caption {
   margin: 0 0 0.85rem;
   max-width: 42rem;
-  color: #5a6a7c;
+  color: var(--muted);
   font-size: 0.85rem;
 }
 
 .trace-toggle {
-  border: 1px solid #c5d0dc;
-  background: #f8fafc;
-  color: #1f4b73;
+  border: 1px solid var(--border-soft);
+  border-radius: 0.9rem;
+  background: var(--surface);
+  color: var(--brand-700);
+  font-weight: 600;
   cursor: pointer;
   padding: 0.45rem 0.75rem;
+  transition: background 0.18s ease, border-color 0.18s ease;
 }
 
 .trace-toggle:hover {
-  background: #eef3f8;
+  background: var(--surface-muted);
+  border-color: var(--brand-200);
 }
 
 .trace-payload {
   margin: 0.85rem 0 0;
   padding: 0.85rem 1rem;
   overflow-x: auto;
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
+  background: #1c1917;
+  color: #f1e9e6;
+  border-radius: 0.9rem;
+  font-family: "Geist Mono", "SFMono-Regular", ui-monospace, monospace;
   font-size: 0.8rem;
   line-height: 1.45;
 }
@@ -409,31 +468,34 @@ button {
 
 .progress-bar-label {
   font-size: 0.85rem;
-  color: #334155;
+  color: var(--text-secondary);
 }
 
 .progress-bar-track {
   height: 0.55rem;
-  background: #e2e8f0;
-  border: 1px solid #cfd9e4;
+  border-radius: 999px;
+  background: #f1e9e6;
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: #1f4b73;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand-600), var(--coral-500));
 }
 
 .progress-bar-count {
   font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
-  color: #5a6a7c;
+  color: var(--muted);
   text-align: right;
 }
 
 .progress-history {
   margin-top: 1.5rem;
   padding-top: 1.25rem;
-  border-top: 1px solid #dbe3ec;
+  border-top: 1px solid var(--border-soft);
 }
 
 .history-points {
@@ -455,7 +517,7 @@ button {
 
 .history-point-label {
   font-size: 0.8rem;
-  color: #5a6a7c;
+  color: var(--muted);
 }
 
 @media (max-width: 640px) {
