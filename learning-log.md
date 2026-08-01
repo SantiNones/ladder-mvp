@@ -117,6 +117,24 @@ que "colgado", y cortar por impaciencia genera más trabajo que esperar.
   un `200 OK` ahí confirma que la app booteó de verdad, no solo que el
   comando no tiró error.
 
+### Git: mergear en GitHub no actualiza tu copia local
+
+**Gap:** después de darle "Squash and merge" en la interfaz de GitHub,
+pregunté qué hacían exactamente `git checkout main` + `git pull`.
+
+**Concepto:** el repo remoto (en GitHub) y el repo local (en tu Mac) son
+dos copias separadas que solo se sincronizan cuando se lo pides
+explícitamente. El botón de merge en GitHub crea el commit nuevo **en
+la nube**; tu `main` local sigue siendo la versión vieja hasta que
+corres `git pull`, que baja esos commits nuevos a tu máquina.
+`git checkout main` es aparte: solo mueve el puntero de tu rama activa
+local, de la rama del sprint de vuelta a `main`.
+
+**Por qué importa:** si crearas la siguiente rama de sprint sin hacer
+`pull` primero, nacería desde la versión vieja de `main` — sin el
+scaffold de Rails ni de React adentro. Es el patrón a repetir después
+de cada PR mergeado: `checkout main` → `pull` → recién ahí, rama nueva.
+
 ### Disciplina: verificar en vez de confiar
 
 **Gap:** el agente reportó S0 como validado, pero al pedirle los
