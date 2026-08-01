@@ -26,12 +26,21 @@ class SnapshotSerializer
       "target_level_position" => @snapshot.target_level_position,
       "met" => @visible[:met].map { |row| criterion_row(row) },
       "gap" => @visible[:gap].map { |row| criterion_row(row) },
-      "narrative" => @snapshot.narrative,
+      "narrative" => parsed_narrative,
       "prompt_payload" => @prompt_payload
     }
   end
 
   private
+
+  def parsed_narrative
+    raw = @snapshot.narrative
+    return nil if raw.blank?
+
+    raw.is_a?(String) ? JSON.parse(raw) : raw
+  rescue JSON::ParserError
+    nil
+  end
 
   def criterion_row(row)
     criterion = @criteria_by_id.fetch(row["criterion_id"])
