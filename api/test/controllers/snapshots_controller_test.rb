@@ -72,7 +72,7 @@ class SnapshotsControllerTest < ActionDispatch::IntegrationTest
     assert_empty forbidden, "found comparison/aggregate routes: #{forbidden}"
 
     snapshot_routes = paths.grep(/snapshot/i)
-    assert_equal ["/snapshots/:id(.:format)"], snapshot_routes
+    assert_equal ["/api/snapshots/:id(.:format)"], snapshot_routes
   end
 
   # D14 — stored prompt_payload is served as-is, never rebuilt live
