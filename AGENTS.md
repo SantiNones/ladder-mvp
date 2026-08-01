@@ -113,6 +113,14 @@ reformatting untouched files, no files that were not in the plan.
 `VisibilityResolver`, write the test first. The acceptance criteria in
 `SPEC.md` §9 are the list; each one is a test.
 
+**Save diagrams, don't let them live only in chat.** Whenever you produce
+a Mermaid diagram (sequence, flow, or otherwise) to explain a sprint's
+design, also save it as its own file under `docs/diagrams/`, named
+`sX-short-description.md` (e.g. `s2-visibility-flow.md`), with the
+Mermaid source in a ```mermaid fenced block. GitHub renders it natively
+when the file is viewed there — no extra tooling needed. Mention the
+new file path in the sprint summary so it doesn't go unnoticed.
+
 **Explain the Rails you introduce.** Santiago has never used Rails —
 this build is how he plans to learn it. When you first use a Rails idiom
 (scopes, `has_many :through`, strong params, callbacks, concerns,

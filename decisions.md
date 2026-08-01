@@ -368,6 +368,31 @@ de soltar algo a usuarios — ninguna de esas tres se da hoy.
 
 ---
 
+## D14 — El panel de trazabilidad sirve el payload guardado, no uno recalculado
+
+**Fecha:** 2026-07-31 (flaggeado por el agente construyendo S2)
+
+**Contexto:** en S2, `GET /snapshots/:id` construye `prompt_payload` de
+nuevo en cada request, a partir del set visible actual — correcto por
+ahora, porque todavía no existe ninguna narrativa ni nada persistido.
+
+**Decisión:** cuando S4 añada `NarrativeGenerator` y persista
+`snapshot.prompt_payload` al cerrar el ciclo, el endpoint debe servir
+**la columna guardada** para cualquier snapshot ya cerrado — nunca
+recalcularla. Recalcular en vivo solo aplicaría a una previsualización
+de un ciclo todavía abierto, si eso llega a construirse.
+
+**Por qué:** el panel de trazabilidad existe para probar qué vio el
+modelo de verdad. Si se recalculara en vivo, el contenido podría
+derivar del original con el tiempo — si se edita o borra evidencia
+después de cerrado el ciclo, el panel mostraría algo distinto a lo que
+el modelo realmente recibió, rompiendo la garantía central de L3.
+
+**Cuándo aplica:** S4. Registrado ahora para que no se improvise
+distinto bajo presión de tiempo.
+
+---
+
 ## Marco legal y de seguridad
 
 ### L1 — EU AI Act, Anexo III punto 4
