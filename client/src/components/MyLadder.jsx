@@ -158,8 +158,9 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
         <div className="trace-panel">
           <p className="trace-caption">
             Exactly what the model received — no current level, no names, no
-            other person&rsquo;s data, and no field for status or verdict. It
-            can only write about a gap it did not compute.
+            other person&rsquo;s data. The gap state you see below (met,
+            uncorroborated, empty) was already computed before the model ran
+            — it can only describe it, never set it.
           </p>
           <button
             type="button"
