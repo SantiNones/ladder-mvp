@@ -3,6 +3,7 @@ import { LENSES, fetchMe } from './api.js'
 import LensBar from './components/LensBar.jsx'
 import MyLadder from './components/MyLadder.jsx'
 import MyTeam from './components/MyTeam.jsx'
+import Progress from './components/Progress.jsx'
 
 const DEFAULT_LENS_ID = LENSES[0].id
 
@@ -67,6 +68,13 @@ export default function App() {
             >
               My ladder
             </button>
+            <button
+              type="button"
+              className={page === 'progress' ? 'nav-button nav-button--active' : 'nav-button'}
+              onClick={() => setPage('progress')}
+            >
+              Progress
+            </button>
             {isManager && (
               <button
                 type="button"
@@ -86,6 +94,7 @@ export default function App() {
                 viewerName={me.name}
               />
             )}
+            {page === 'progress' && <Progress personId={me.id} />}
             {page === 'team' && isManager && (
               <MyTeam reports={me.reports} onOpenLadder={openReportLadder} />
             )}

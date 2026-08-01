@@ -23,4 +23,8 @@ export function fetchSnapshot(snapshotId, personId) {
   return apiGet(`/snapshots/${snapshotId}`, personId)
 }
 
+export function fetchProgress(personId) {
+  return apiGet(`/people/${personId}/progress`, personId)
+}
+
 export { LENSES }
