@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   get "me", to: "me#show"
   resources :snapshots, only: [:show]
+  resources :people, only: [] do
+    member { get :progress }
+  end
 end

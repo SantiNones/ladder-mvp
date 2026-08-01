@@ -75,6 +75,40 @@ class SnapshotsControllerTest < ActionDispatch::IntegrationTest
     assert_equal ["/snapshots/:id(.:format)"], snapshot_routes
   end
 
+  # D14 — stored prompt_payload is served as-is, never rebuilt live
+  test "D14: GET serves stored prompt_payload and narrative without recomputing" do
+    stored_payload = {
+      "subject_first_name" => "STORED-MARKER",
+      "cycle_label" => @h1.cycle_label,
+      "target_level_name" => "IC3 Software Engineer",
+      "met" => [],
+      "gap" => [
+        {
+          "code" => "DIR-3.1",
+          "competency" => "DIR",
+          "text" => "stored gap row",
+          "state" => "empty"
+        }
+      ]
+    }
+    stored_narrative = {
+      "summary" => "Stored narrative for D14.",
+      "focus_competency" => "DIR",
+      "next_steps" => [
+        { "criterion_code" => "DIR-3.1", "suggestion" => "Stored step." }
+      ]
+    }
+    @h1.update!(prompt_payload: stored_payload, narrative: stored_narrative.to_json)
+
+    get snapshot_url(@h1), headers: person_header(@ana)
+    assert_response :success
+    body = JSON.parse(response.body)
+
+    assert_equal "STORED-MARKER", body.dig("prompt_payload", "subject_first_name")
+    assert_equal stored_payload, body["prompt_payload"]
+    assert_equal stored_narrative, body["narrative"]
+  end
+
   private
 
   def person_header(person)

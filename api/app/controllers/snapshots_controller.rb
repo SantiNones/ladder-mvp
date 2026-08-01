@@ -12,7 +12,14 @@ class SnapshotsController < ApplicationController
     )
     return head :not_found if visible[:access] == :denied
 
-    prompt_payload = PromptPayloadBuilder.call(visible: visible)
+    # D14: once persisted, serve the stored prompt_payload — never rebuild live.
+    prompt_payload =
+      if snapshot.prompt_payload.present?
+        snapshot.prompt_payload
+      else
+        PromptPayloadBuilder.call(visible: visible)
+      end
+
     render json: SnapshotSerializer.call(visible: visible, prompt_payload: prompt_payload)
   end
 end

@@ -393,7 +393,80 @@ distinto bajo presión de tiempo.
 
 ---
 
-## Marco legal y de seguridad
+## D15 — S4 corre en modo determinístico, no LLM real
+
+**Fecha:** 2026-07-31 (decidido por Santiago)
+
+**Decisión:** la narrativa de S4 se genera con una plantilla
+determinística, no con una llamada real a un LLM — aunque había una
+API key de OpenAI disponible y no era el obstáculo.
+
+**Por qué:** la pregunta que abrió esta decisión fue la correcta —
+¿una conexión real mejora el producto, o solo demuestra que se puede
+conectar un LLM? La parte difícil del proyecto (qué puede y qué no
+puede decidir una IA) ya está 100% construida y probada sin que ningún
+modelo real haya corrido — `GapCalculator`, `VisibilityResolver`, y el
+schema de salida sin campo de nivel/veredicto no cambian en nada según
+el modo. Lo que un LLM real añadiría — prosa más natural, prueba de
+integración con una API — es una habilidad que OpsGuard ya demostró
+(su propio modo "AI-assisted" con GPT-4o-mini y fallback seguro);
+repetirla acá no es señal nueva.
+
+Además, los tests A9 (criterio inventado → fallback) y A14 (API caída
+→ fallback) se prueban con más rigor simulando la entrada mala a
+propósito que esperando que un modelo real falle justo a tiempo para
+demostrarlo — es la práctica estándar incluso en equipos que sí usan
+LLMs en producción.
+
+**Riesgo evitado:** una llave nueva que resguardar, una dependencia de
+red frágil en medio de una demo en vivo el lunes, y tiempo de S5/S6
+gastado en integración en vez de en la frontera misma.
+
+**Puerta abierta, barata:** cambiar la plantilla por una llamada real a
+OpenAI más adelante es un cambio pequeño — el contrato y la validación
+ya están completos sin importar el modo, mismo patrón del toggle
+`USE_AI` de OpsGuard.
+
+---
+
+## D16 — Dónde una IA real sí añadiría valor (fuera de scope, para la conversación)
+
+**Fecha:** 2026-07-31 (explorado por Santiago, no construido hoy)
+
+**Contexto:** tras D15, vale la pena distinguir "narrar una decisión ya
+tomada" (bajo riesgo, bajo valor único) de un punto medio real: la IA
+haciendo trabajo cognitivo que un humano haría a mano, sobre datos que
+siguen pasando por el mismo filtro de visibilidad, siempre como
+sugerencia que un humano confirma — nunca aplicada sola.
+
+**Cuatro ideas concretas, ninguna construida en este MVP:**
+
+1. **Etiquetar evidencia libre contra los 15 criterios.** Hoy alguien
+   decide a mano a qué criterio pertenece una nota. Un LLM podría leer
+   texto libre y sugerir el match ("esto suena a RES-3.2"); el manager
+   confirma o corrige. La IA nunca escribe `criterion_id` sola.
+2. **Detectar patrones entre varios reports de un mismo manager.** Si
+   varios reports comparten el mismo hueco, señalarlo como posible
+   necesidad de equipo, no solo individual — el mismo pitch que
+   Factorial hace de su propio "One" ("detecta patrones... para
+   decisiones basadas en datos"), aplicado a este dominio. Emparentado
+   con la vista agregada de HR que ya quedó fuera de scope en D10.
+3. **Un chatbot conversacional sobre el payload ya filtrado** — mismo
+   patrón que "One" (RAG con permisos), pero conversacional en vez de
+   proactivo. Complementaría a Ladder, no lo reemplazaría — sigue
+   atado al mismo `VisibilityResolver` y al mismo schema sin campo de
+   veredicto.
+4. **Personalizar `next_steps` usando también la evidencia ya
+   cubierta**, no solo el hueco — una sugerencia como "ya destrabaste
+   a tu equipo en el incidente de pagos (RES-3.2); un paso natural en
+   DIR-3.1 sería buscar una situación ambigua parecida" es síntesis
+   real, no una plantilla con el nombre del criterio pegado.
+
+**Por qué ninguna se construye hoy:** el tiempo restante del bloque no
+alcanza, y ninguna es necesaria para demostrar la frontera AI/
+determinista — que es lo que este MVP existe para probar. Quedan
+documentadas para no tener que improvisar la respuesta si el tema sale
+en la conversación del lunes.
 
 ### L1 — EU AI Act, Anexo III punto 4
 

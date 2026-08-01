@@ -320,6 +320,144 @@ button {
   color: #7f1d1d;
 }
 
+.narrative-block {
+  margin: 0 0 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #dbe3ec;
+}
+
+.narrative-heading {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.narrative-summary {
+  margin: 0;
+  color: #334155;
+}
+
+.narrative-focus {
+  margin: 0.65rem 0 0;
+  color: #5a6a7c;
+  font-size: 0.9rem;
+}
+
+.next-steps {
+  margin: 0.75rem 0 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.45rem;
+  color: #334155;
+}
+
+.next-step-code {
+  display: inline-block;
+  margin-right: 0.45rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.trace-panel {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #dbe3ec;
+}
+
+.trace-caption {
+  margin: 0 0 0.85rem;
+  max-width: 42rem;
+  color: #5a6a7c;
+  font-size: 0.85rem;
+}
+
+.trace-toggle {
+  border: 1px solid #c5d0dc;
+  background: #f8fafc;
+  color: #1f4b73;
+  cursor: pointer;
+  padding: 0.45rem 0.75rem;
+}
+
+.trace-toggle:hover {
+  background: #eef3f8;
+}
+
+.trace-payload {
+  margin: 0.85rem 0 0;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.progress-bars {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.progress-bar-row {
+  display: grid;
+  grid-template-columns: 11rem 1fr 3rem;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.progress-bar-label {
+  font-size: 0.85rem;
+  color: #334155;
+}
+
+.progress-bar-track {
+  height: 0.55rem;
+  background: #e2e8f0;
+  border: 1px solid #cfd9e4;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #1f4b73;
+}
+
+.progress-bar-count {
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: #5a6a7c;
+  text-align: right;
+}
+
+.progress-history {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #dbe3ec;
+}
+
+.history-points {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.history-point {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.history-point-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.history-point-label {
+  font-size: 0.8rem;
+  color: #5a6a7c;
+}
+
 @media (max-width: 640px) {
   .level-row {
     grid-template-columns: 1fr;
@@ -327,5 +465,10 @@ button {
 
   .lens-bar {
     align-items: flex-start;
+  }
+
+  .progress-bar-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
   }
 }
