@@ -31,18 +31,21 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
   const [snapshot, setSnapshot] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [showTrace, setShowTrace] = useState(false)
 
   useEffect(() => {
     if (!snapshotId) {
       setSnapshot(null)
       setError(null)
       setLoading(false)
+      setShowTrace(false)
       return
     }
 
     let cancelled = false
     setLoading(true)
     setError(null)
+    setShowTrace(false)
 
     fetchSnapshot(snapshotId, personId)
       .then((data) => {
@@ -98,6 +101,7 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
   if (!snapshot) return null
 
   const viewingOther = viewerName && snapshot.person_name !== viewerName
+  const narrative = snapshot.narrative
 
   return (
     <section className="panel">
@@ -126,7 +130,47 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
         </div>
       </div>
 
+      {narrative && (
+        <div className="narrative-block">
+          <h3 className="narrative-heading">Narrative</h3>
+          <p className="narrative-summary">{narrative.summary}</p>
+          {narrative.focus_competency && (
+            <p className="narrative-focus">
+              Focus competency: <strong>{narrative.focus_competency}</strong>
+            </p>
+          )}
+          {Array.isArray(narrative.next_steps) && narrative.next_steps.length > 0 && (
+            <ul className="next-steps">
+              {narrative.next_steps.map((step) => (
+                <li key={step.criterion_code}>
+                  <span className="next-step-code">{step.criterion_code}</span>
+                  {step.suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
       <CriterionGroup criteriaByCompetency={grouped} />
+
+      {snapshot.prompt_payload && (
+        <div className="trace-panel">
+          <button
+            type="button"
+            className="trace-toggle"
+            onClick={() => setShowTrace((open) => !open)}
+            aria-expanded={showTrace}
+          >
+            {showTrace ? 'Hide what the model received' : 'See what the model received'}
+          </button>
+          {showTrace && (
+            <pre className="trace-payload">
+              {JSON.stringify(snapshot.prompt_payload, null, 2)}
+            </pre>
+          )}
+        </div>
+      )}
     </section>
   )
 }

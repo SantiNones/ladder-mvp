@@ -320,6 +320,73 @@ button {
   color: #7f1d1d;
 }
 
+.narrative-block {
+  margin: 0 0 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #dbe3ec;
+}
+
+.narrative-heading {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.narrative-summary {
+  margin: 0;
+  color: #334155;
+}
+
+.narrative-focus {
+  margin: 0.65rem 0 0;
+  color: #5a6a7c;
+  font-size: 0.9rem;
+}
+
+.next-steps {
+  margin: 0.75rem 0 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.45rem;
+  color: #334155;
+}
+
+.next-step-code {
+  display: inline-block;
+  margin-right: 0.45rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.trace-panel {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #dbe3ec;
+}
+
+.trace-toggle {
+  border: 1px solid #c5d0dc;
+  background: #f8fafc;
+  color: #1f4b73;
+  cursor: pointer;
+  padding: 0.45rem 0.75rem;
+}
+
+.trace-toggle:hover {
+  background: #eef3f8;
+}
+
+.trace-payload {
+  margin: 0.85rem 0 0;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
 @media (max-width: 640px) {
   .level-row {
     grid-template-columns: 1fr;
