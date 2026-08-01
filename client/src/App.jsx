@@ -13,6 +13,7 @@ export default function App() {
   const [meError, setMeError] = useState(null)
   const [page, setPage] = useState('ladder')
   const [ladderSnapshotId, setLadderSnapshotId] = useState(null)
+  const [progressPersonId, setProgressPersonId] = useState(null)
 
   useEffect(() => {
     let cancelled = false
@@ -23,6 +24,7 @@ export default function App() {
         if (cancelled) return
         setMe(data)
         setLadderSnapshotId(data.latest_snapshot_id)
+        setProgressPersonId(null)
         setPage(data.role === 'manager' ? 'team' : 'ladder')
       })
       .catch(() => {
@@ -50,6 +52,16 @@ export default function App() {
     setPage('ladder')
   }
 
+  function openOwnProgress() {
+    setProgressPersonId(me?.id ?? null)
+    setPage('progress')
+  }
+
+  function openReportProgress(personId) {
+    setProgressPersonId(personId)
+    setPage('progress')
+  }
+
   const isManager = me?.role === 'manager'
 
   return (
@@ -71,7 +83,7 @@ export default function App() {
             <button
               type="button"
               className={page === 'progress' ? 'nav-button nav-button--active' : 'nav-button'}
-              onClick={() => setPage('progress')}
+              onClick={openOwnProgress}
             >
               Progress
             </button>
@@ -94,9 +106,15 @@ export default function App() {
                 viewerName={me.name}
               />
             )}
-            {page === 'progress' && <Progress personId={me.id} />}
+            {page === 'progress' && (
+              <Progress personId={progressPersonId ?? me.id} viewerName={me.name} />
+            )}
             {page === 'team' && isManager && (
-              <MyTeam reports={me.reports} onOpenLadder={openReportLadder} />
+              <MyTeam
+                reports={me.reports}
+                onOpenLadder={openReportLadder}
+                onOpenProgress={openReportProgress}
+              />
             )}
           </main>
         </>

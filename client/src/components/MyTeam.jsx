@@ -1,4 +1,4 @@
-export default function MyTeam({ reports, onOpenLadder }) {
+export default function MyTeam({ reports, onOpenLadder, onOpenProgress }) {
   return (
     <section className="panel">
       <header className="panel-header">
@@ -25,13 +25,22 @@ export default function MyTeam({ reports, onOpenLadder }) {
                   )}
                 </div>
                 {hasSnapshot ? (
-                  <button
-                    type="button"
-                    className="link-button"
-                    onClick={() => onOpenLadder(report.latest_snapshot_id)}
-                  >
-                    Open ladder
-                  </button>
+                  <div className="team-actions">
+                    <button
+                      type="button"
+                      className="link-button"
+                      onClick={() => onOpenLadder(report.latest_snapshot_id)}
+                    >
+                      Open ladder
+                    </button>
+                    <button
+                      type="button"
+                      className="link-button"
+                      onClick={() => onOpenProgress(report.id)}
+                    >
+                      Progress
+                    </button>
+                  </div>
                 ) : (
                   <span className="muted">—</span>
                 )}

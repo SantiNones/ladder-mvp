@@ -10,7 +10,7 @@ const COMPETENCY_NAMES = {
   CRA: 'Craft',
 }
 
-export default function Progress({ personId }) {
+export default function Progress({ personId, viewerName }) {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -58,6 +58,7 @@ export default function Progress({ personId }) {
 
   if (!data) return null
 
+  const viewingOther = viewerName && data.person_name !== viewerName
   const byCompetency = data.current?.by_competency ?? []
   const rows = COMPETENCY_ORDER.map((code) => byCompetency.find((row) => row.competency === code)).filter(
     Boolean,
@@ -66,7 +67,10 @@ export default function Progress({ personId }) {
   return (
     <section className="panel">
       <header className="panel-header">
-        <h2>Progress</h2>
+        <div>
+          <h2>{viewingOther ? 'Progress' : 'My progress'}</h2>
+          {viewingOther && <p className="subject-label">Viewing {data.person_name}</p>}
+        </div>
         {data.current?.cycle_label && <p className="cycle-label">{data.current.cycle_label}</p>}
       </header>
 
