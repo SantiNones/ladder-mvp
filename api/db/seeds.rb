@@ -204,3 +204,67 @@ h1.assign_attributes(
   prompt_payload: nil
 )
 h1.save!
+
+# --- Carlos H1 2026 (2 met + DIR-3.1 uncorroborated; rest empty) ---
+c_res31 = upsert_evidence!(
+  person: carlos, criterion: by_code["RES-3.1"], author: laura,
+  author_relation: "manager", source_type: "manager_note",
+  body: "Carlos shipped the search ranking fix on schedule and kept stakeholders informed throughout.",
+  occurred_on: Date.new(2026, 2, 25)
+)
+c_cra31 = upsert_evidence!(
+  person: carlos, criterion: by_code["CRA-3.1"], author: laura,
+  author_relation: "manager", source_type: "manager_note",
+  body: "Carlos's code reviews catch subtle race conditions and raise the team's craft bar.",
+  occurred_on: Date.new(2026, 4, 14)
+)
+c_dir31_self = upsert_evidence!(
+  person: carlos, criterion: by_code["DIR-3.1"], author: carlos,
+  author_relation: "self", source_type: "self_claim",
+  body: "I proposed a clearer ownership model for the shared caching layer across squads.",
+  occurred_on: Date.new(2026, 5, 12)
+)
+
+carlos_h1_met = [
+  { "criterion_id" => by_code["RES-3.1"].id, "evidence_ids" => [c_res31.id] },
+  { "criterion_id" => by_code["CRA-3.1"].id, "evidence_ids" => [c_cra31.id] }
+]
+carlos_h1_gap = [
+  { "criterion_id" => by_code["RES-3.2"].id, "state" => "empty", "evidence_ids" => [] },
+  { "criterion_id" => by_code["DIR-3.1"].id, "state" => "uncorroborated", "evidence_ids" => [c_dir31_self.id] },
+  { "criterion_id" => by_code["DIR-3.2"].id, "state" => "empty", "evidence_ids" => [] },
+  { "criterion_id" => by_code["TAL-3.1"].id, "state" => "empty", "evidence_ids" => [] },
+  { "criterion_id" => by_code["TAL-3.2"].id, "state" => "empty", "evidence_ids" => [] },
+  { "criterion_id" => by_code["CUL-3.1"].id, "state" => "empty", "evidence_ids" => [] },
+  { "criterion_id" => by_code["CUL-3.2"].id, "state" => "empty", "evidence_ids" => [] },
+  { "criterion_id" => by_code["CRA-3.2"].id, "state" => "empty", "evidence_ids" => [] }
+]
+
+carlos_h1 = Snapshot.find_or_initialize_by(person: carlos, cycle_label: "H1 2026")
+carlos_h1.assign_attributes(
+  window_start: h1_start,
+  window_end: h1_end,
+  closed_at: Time.utc(2026, 6, 30, 18, 0, 0),
+  level_position_at_close: 2,
+  target_level_position: 3,
+  met: carlos_h1_met,
+  gap: carlos_h1_gap,
+  narrative: nil,
+  prompt_payload: nil
+)
+carlos_h1.save!
+
+# --- Laura H1 2026 (empty on purpose: no IC4 criteria in this framework) ---
+laura_h1 = Snapshot.find_or_initialize_by(person: laura, cycle_label: "H1 2026")
+laura_h1.assign_attributes(
+  window_start: h1_start,
+  window_end: h1_end,
+  closed_at: Time.utc(2026, 6, 30, 18, 0, 0),
+  level_position_at_close: 3,
+  target_level_position: 4,
+  met: [],
+  gap: [],
+  narrative: nil,
+  prompt_payload: nil
+)
+laura_h1.save!

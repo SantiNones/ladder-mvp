@@ -58,7 +58,7 @@ class SnapshotsControllerTest < ActionDispatch::IntegrationTest
 
   # A12 — Ana requesting Carlos → 404
   test "A12: Ana requesting Carlos snapshot returns 404" do
-    carlos_snapshot = create_blank_snapshot!(@carlos, "H1 2026")
+    carlos_snapshot = Snapshot.find_by!(person: @carlos, cycle_label: "H1 2026")
 
     get snapshot_url(carlos_snapshot), headers: person_header(@ana)
     assert_response :not_found
