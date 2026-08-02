@@ -58,6 +58,6 @@ class PromptPayloadBuilder
   end
 
   def level_name(position)
-    LEVEL_NAMES.fetch(position) { "IC#{position} Software Engineer" }
+    LEVEL_NAMES.fetch(position) { "No next level defined for this role" }
   end
 end
