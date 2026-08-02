@@ -121,7 +121,9 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
         <div>
           <span className="level-caption">Current level</span>
           <p className="level-value">
-            {levelName(snapshot.level_position_at_close)}
+            {noNextLevel
+              ? `Level ${snapshot.level_position_at_close}`
+              : levelName(snapshot.level_position_at_close)}
           </p>
         </div>
         <div>
