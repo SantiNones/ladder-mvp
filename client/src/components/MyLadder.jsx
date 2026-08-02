@@ -102,6 +102,8 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
 
   const viewingOther = viewerName && snapshot.person_name !== viewerName
   const narrative = snapshot.narrative
+  const noNextLevel =
+    (snapshot.met?.length ?? 0) === 0 && (snapshot.gap?.length ?? 0) === 0
 
   return (
     <section className="panel">
@@ -125,10 +127,19 @@ export default function MyLadder({ personId, snapshotId, viewerName }) {
         <div>
           <span className="level-caption">Target level</span>
           <p className="level-value">
-            {levelName(snapshot.target_level_position)}
+            {noNextLevel
+              ? 'No next level defined for this role'
+              : levelName(snapshot.target_level_position)}
           </p>
         </div>
       </div>
+
+      {noNextLevel && (
+        <p className="empty-state">
+          This framework only covers the Software Engineer IC track — there&rsquo;s
+          no next level defined here.
+        </p>
+      )}
 
       {narrative && (
         <div className="narrative-block">
