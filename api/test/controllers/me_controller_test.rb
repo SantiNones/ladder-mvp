@@ -10,6 +10,8 @@ class MeControllerTest < ActionDispatch::IntegrationTest
     @laura = Person.find_by!(name: "Laura Puig")
     @carlos = Person.find_by!(name: "Carlos Medina")
     @h1 = Snapshot.find_by!(person: @ana, cycle_label: "H1 2026")
+    @laura_h1 = Snapshot.find_by!(person: @laura, cycle_label: "H1 2026")
+    @carlos_h1 = Snapshot.find_by!(person: @carlos, cycle_label: "H1 2026")
   end
 
   test "missing X-Person-Id returns 404" do
@@ -34,14 +36,14 @@ class MeControllerTest < ActionDispatch::IntegrationTest
     assert_equal [], body["reports"]
   end
 
-  test "Laura sees reports alphabetically with Ana covered counts" do
+  test "Laura sees reports alphabetically with Ana and Carlos covered counts" do
     get me_url, headers: person_header(@laura)
     assert_response :success
 
     body = JSON.parse(response.body)
     assert_equal @laura.id, body["id"]
     assert_equal "manager", body["role"]
-    assert_nil body["latest_snapshot_id"]
+    assert_equal @laura_h1.id, body["latest_snapshot_id"]
 
     reports = body["reports"]
     assert_equal ["Ana Ferrer", "Carlos Medina"], reports.map { |r| r["name"] }
@@ -53,10 +55,10 @@ class MeControllerTest < ActionDispatch::IntegrationTest
     assert_equal 10, ana_row["total"]
 
     carlos_row = reports.find { |r| r["id"] == @carlos.id }
-    assert_nil carlos_row["latest_snapshot_id"]
-    assert_nil carlos_row["cycle_label"]
-    assert_nil carlos_row["covered"]
-    assert_nil carlos_row["total"]
+    assert_equal @carlos_h1.id, carlos_row["latest_snapshot_id"]
+    assert_equal "H1 2026", carlos_row["cycle_label"]
+    assert_equal 2, carlos_row["covered"]
+    assert_equal 10, carlos_row["total"]
   end
 
   private
